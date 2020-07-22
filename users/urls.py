@@ -22,10 +22,8 @@ urlpatterns = [
     path('staff-announcement/', announcement_views.AnnouncementsListView.as_view(), name='announcements-list'),
     path('staff-announcement/<int:pk>/', announcement_views.AnnouncementsDetailView.as_view(), name='announcement-detail'),
     path('staff-announcement/new/', announcement_views.AnnouncementsCreateView.as_view(), name='announcement-create'),
-    path('staff-announcement/<int:pk>/update/', announcement_views.AnnouncementsUpdateView.as_view(), name='announcement '
-                                                                                                     '-update'),
-    path('staff-announcement/<int:pk>/delete/', announcement_views.AnnouncementsDeleteView.as_view(), name='announcement'
-                                                                                                     '-delete'),
+    path('staff-announcement/<int:pk>/update/', announcement_views.AnnouncementsUpdateView.as_view(), name='announcement-update'),
+    path('staff-announcement/<int:pk>/delete/', announcement_views.AnnouncementsDeleteView.as_view(), name='announcement-delete'),
     path('announcements/', views.announcements_list, name='user-list-announcements'),
     path('query-farm/', views.query_farm_data, name='QueryFarmData'),
     path('crop-wise-details/', views.yield_estimates_staff, name='CropWiseData')

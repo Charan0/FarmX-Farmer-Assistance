@@ -16,7 +16,7 @@ class AnnouncementsListView(LoginRequiredMixin, UserPassesTestMixin, ListView):
     model = Announcement
 
 
-class AnnouncementsDetailView(LoginRequiredMixin, DetailView):
+class AnnouncementsDetailView(LoginRequiredMixin, UserPassesTestMixin, DetailView):
     def test_func(self):
         user_group = self.request.user.groups.all().first()
         if user_group.name == 'Staff':
@@ -26,30 +26,7 @@ class AnnouncementsDetailView(LoginRequiredMixin, DetailView):
     model = Announcement
 
 
-class AnnouncementsCreateView(LoginRequiredMixin, CreateView):
-    def test_func(self):
-        user_group = self.request.user.groups.all().first()
-        if user_group.name == 'Staff':
-            return True
-        return False
-
-    model = Announcement
-    fields = ['title', 'content', 'date_posted']
-    success_url = '/user/announcement/'
-
-
-class AnnouncementsDeleteView(LoginRequiredMixin, DeleteView):
-    def test_func(self):
-        user_group = self.request.user.groups.all().first()
-        if user_group.name == 'Staff':
-            return True
-        return False
-
-    model = Announcement
-    success_url = '/user/announcement'
-
-
-class AnnouncementsUpdateView(LoginRequiredMixin, UpdateView):
+class AnnouncementsCreateView(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     def test_func(self):
         user_group = self.request.user.groups.all().first()
         if user_group.name == 'Staff':
@@ -58,4 +35,27 @@ class AnnouncementsUpdateView(LoginRequiredMixin, UpdateView):
 
     model = Announcement
     fields = ['title', 'content', 'date_posted']
-    success_url = '/user/announcement'
+    success_url = '/user/staff-announcement/'
+
+
+class AnnouncementsDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    def test_func(self):
+        user_group = self.request.user.groups.all().first()
+        if user_group.name == 'Staff':
+            return True
+        return False
+
+    model = Announcement
+    success_url = '/user/staff-announcement'
+
+
+class AnnouncementsUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    def test_func(self):
+        user_group = self.request.user.groups.all().first()
+        if user_group.name == 'Staff':
+            return True
+        return False
+
+    model = Announcement
+    fields = ['title', 'content', 'date_posted']
+    success_url = '/user/staff-announcement'
