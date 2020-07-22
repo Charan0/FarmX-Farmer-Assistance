@@ -40,6 +40,13 @@ crop_choices = [
 
 ]
 
+water_sources = [
+    ('River', 'River'),
+    ('Drilled Well', 'Drilled Well'),
+    ('Drainage ponds', 'Drainage ponds'),
+    ('Rain Water', 'Rain Water')
+]
+
 
 # Create your models here.
 class Farm(models.Model):
@@ -54,10 +61,10 @@ class Farm(models.Model):
     crop = models.CharField(choices=crop_choices, max_length=200, verbose_name='Crop')
     expecting_yield = models.DecimalField(max_digits=5, decimal_places=2, verbose_name='Yield Expecting',
                                           help_text='In Quintal', null=True)
+    water_source = models.CharField(choices=water_sources, max_length=100, verbose_name='Water Source', default='Rain Water')
 
     class Meta:
         ordering = ['-total_land_available']
 
     def __str__(self):
         return f'{self.owner.username}\'s Farm in {self.village}'
-

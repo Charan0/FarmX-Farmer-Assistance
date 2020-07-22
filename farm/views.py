@@ -20,7 +20,7 @@ class FarmDetailView(LoginRequiredMixin, DetailView):
 
 class FarmCreateView(LoginRequiredMixin, CreateView):
     model = Farm
-    fields = ['state', 'village', 'total_land_available', 'land_cultivating', 'crop', 'expecting_yield']
+    fields = ['state', 'village', 'total_land_available', 'land_cultivating', 'crop', 'expecting_yield', 'water_source']
     success_url = '/user/farm/'
 
     def form_valid(self, form):
@@ -30,7 +30,7 @@ class FarmCreateView(LoginRequiredMixin, CreateView):
 
 class FarmUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Farm
-    fields = ['state', 'village', 'total_land_available', 'land_cultivating', 'crop', 'expecting_yield']
+    fields = ['state', 'village', 'total_land_available', 'land_cultivating', 'crop', 'expecting_yield', 'water_source']
     success_url = '/user/farm/'
 
     def form_valid(self, form):
